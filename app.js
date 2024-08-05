@@ -11,7 +11,6 @@ app.use(bodyParser.json());
 // Routes
 app.use('/api', bookRoutes);
 
-// Connect to MongoDB
 mongoose.connect(config.mongoURI)
     .then(() => {
         console.log('Connected to MongoDB');
