@@ -12,16 +12,13 @@ app.use(bodyParser.json());
 app.use('/api', bookRoutes);
 
 // Connect to MongoDB
-mongoose.connect(config.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch(err => {
-    console.error('Could not connect to MongoDB', err);
-});
+mongoose.connect(config.mongoURI)
+    .then(() => {
+        console.log('Connected to MongoDB');
+    })
+    .catch(err => {
+        console.error('Could not connect to MongoDB', err);
+    });
 
 // Start the server
 app.listen(config.port, () => {
