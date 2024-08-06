@@ -5,7 +5,6 @@ const bookRoutes = require('./routes/bookRoutes');
 const config = require('./config');
 const app = express();
 
-// Middleware
 app.use(bodyParser.json());
 
 app.use('/api', bookRoutes);
