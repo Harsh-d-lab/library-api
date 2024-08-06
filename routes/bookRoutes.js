@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const bookController = require('../controllers/bookController');
+const validate = require('../middlewares/validate');
+const { bookSchema } = require('../validations/bookValidation');
 
 router.get('/books/search', bookController.searchBooks);
 router.post('/books', bookController.createBook);
