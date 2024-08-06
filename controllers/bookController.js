@@ -9,6 +9,7 @@ exports.createBook = async (req, res) => {
         res.status(400).send(error);
     }
 };
+
 exports.getAllBooks = async (req, res) => {
     try {
         const books = await Book.find({});
@@ -17,6 +18,7 @@ exports.getAllBooks = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
 exports.getBookById = async (req, res) => {
     const _id = req.params.id;
     try {
@@ -54,6 +56,7 @@ exports.updateBook = async (req, res) => {
         res.status(400).send(error);
     }
 };
+
 exports.deleteBook = async (req, res) => {
     try {
         const book = await Book.findByIdAndDelete(req.params.id);
@@ -67,10 +70,26 @@ exports.deleteBook = async (req, res) => {
         res.status(500).send(error);
     }
 };
+
 exports.searchBooks = async (req, res) => {
     const query = req.query;
+    const searchCriteria = {};
+
+    if (query.isbn) {
+        searchCriteria.isbn = query.isbn;
+    }
+    if (query.title) {
+        searchCriteria.title = { $regex: query.title, $options: 'i' };
+    }
+    if (query.author) {
+        searchCriteria.author = { $regex: query.author, $options: 'i' };
+    }
+    if (query.genre) {
+        searchCriteria.genre = { $regex: query.genre, $options: 'i' };
+    }
+
     try {
-        const books = await Book.find(query);
+        const books = await Book.find(searchCriteria);
         res.status(200).send(books);
     } catch (error) {
         res.status(500).send(error);

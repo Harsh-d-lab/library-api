@@ -8,7 +8,6 @@ const app = express();
 // Middleware
 app.use(bodyParser.json());
 
-// Routes
 app.use('/api', bookRoutes);
 
 mongoose.connect(config.mongoURI)
